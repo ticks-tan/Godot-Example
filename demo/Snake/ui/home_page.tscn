@@ -1,0 +1,130 @@
+[gd_scene load_steps=8 format=3 uid="uid://0hgkgs3d84uc"]
+
+[ext_resource type="FontFile" uid="uid://cmbrbhatsb55s" path="res://assets/fonts/Big Apple 3PM.ttf" id="1_70eyw"]
+[ext_resource type="Script" path="res://ui/home_page.gd" id="1_cpkw8"]
+[ext_resource type="StyleBox" uid="uid://x4inxmi7ila5" path="res://ui/home_page_btn.tres" id="2_oihiv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ns7rr"]
+content_margin_bottom = 40.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Gradient" id="Gradient_sddfo"]
+offsets = PackedFloat32Array(0, 0.847458, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.784314, 0.847059, 1, 1, 0.772549, 0.909804, 0.94902, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gwxxo"]
+gradient = SubResource("Gradient_sddfo")
+use_hdr = true
+
+[sub_resource type="Environment" id="Environment_h32k8"]
+background_mode = 3
+ssr_fade_in = 1.15912
+ssr_fade_out = 14.9285
+glow_enabled = true
+glow_levels/1 = 1.0
+glow_levels/2 = 1.0
+glow_levels/5 = 0.0
+glow_bloom = 0.1
+glow_blend_mode = 1
+adjustment_enabled = true
+adjustment_color_correction = SubResource("GradientTexture2D_gwxxo")
+
+[node name="HomePage" type="Node2D"]
+script = ExtResource("1_cpkw8")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1664.0
+offset_bottom = 1024.0
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Bg" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_right = 1664.0
+offset_bottom = 1024.0
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 128.0
+offset_bottom = 277.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_70eyw")
+theme_override_font_sizes/font_size = 120
+text = "Greedy Snake"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartGame" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -832.0
+offset_top = -72.0
+offset_right = 832.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_70eyw")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = ExtResource("2_oihiv")
+theme_override_styles/hover = ExtResource("2_oihiv")
+theme_override_styles/pressed = ExtResource("2_oihiv")
+theme_override_styles/disabled = ExtResource("2_oihiv")
+theme_override_styles/focus = ExtResource("2_oihiv")
+text = "Start Game"
+
+[node name="ExitGame" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -832.0
+offset_top = 88.0
+offset_right = 832.0
+offset_bottom = 195.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_70eyw")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = ExtResource("2_oihiv")
+theme_override_styles/hover = ExtResource("2_oihiv")
+theme_override_styles/pressed = ExtResource("2_oihiv")
+theme_override_styles/disabled = ExtResource("2_oihiv")
+theme_override_styles/focus = ExtResource("2_oihiv")
+text = "Exit"
+
+[node name="MadeInfo" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_70eyw")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_ns7rr")
+text = "Made By Ticks."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h32k8")
+
+[connection signal="button_down" from="Control/StartGame" to="." method="_on_start_game_button_down"]
+[connection signal="button_up" from="Control/StartGame" to="." method="_on_start_game_button_up"]
+[connection signal="pressed" from="Control/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="button_down" from="Control/ExitGame" to="." method="_on_exit_game_button_down"]
+[connection signal="button_up" from="Control/ExitGame" to="." method="_on_exit_game_button_up"]
+[connection signal="pressed" from="Control/ExitGame" to="." method="_on_exit_game_pressed"]

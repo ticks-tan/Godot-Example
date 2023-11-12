@@ -1,0 +1,155 @@
+[gd_scene load_steps=10 format=3 uid="uid://c0xm14codo8si"]
+
+[ext_resource type="Script" path="res://ui/main_game.gd" id="1_pkq13"]
+[ext_resource type="PackedScene" uid="uid://dxgujxase6bus" path="res://ui/game_map.tscn" id="2_maxhk"]
+[ext_resource type="AudioStream" uid="uid://bns5hu0u68ef5" path="res://assets/music/bg_music.wav" id="5_7cxiu"]
+[ext_resource type="AudioStream" uid="uid://8p6tp7aq3dca" path="res://assets/music/die_music.ogg" id="6_qvtqi"]
+[ext_resource type="AudioStream" uid="uid://drm4rdxp5c81e" path="res://assets/music/eta.wav" id="7_bq55r"]
+[ext_resource type="FontFile" uid="uid://cmbrbhatsb55s" path="res://assets/fonts/Big Apple 3PM.ttf" id="7_tdv4h"]
+
+[sub_resource type="Gradient" id="Gradient_revwg"]
+offsets = PackedFloat32Array(0, 0.786441, 0.861017, 0.945763)
+colors = PackedColorArray(0, 0, 0, 1, 0.784314, 0.847059, 1, 1, 0.784314, 0.847059, 1, 1, 0.784314, 0.847059, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_csyrc"]
+gradient = SubResource("Gradient_revwg")
+use_hdr = true
+
+[sub_resource type="Environment" id="Environment_gope7"]
+background_mode = 3
+glow_enabled = true
+glow_levels/1 = 2.0
+glow_levels/2 = 2.0
+glow_levels/3 = 2.0
+glow_levels/5 = 0.0
+glow_intensity = 2.5
+glow_bloom = 0.01
+glow_blend_mode = 1
+glow_hdr_threshold = 0.8
+glow_hdr_scale = 1.5
+adjustment_enabled = true
+adjustment_color_correction = SubResource("GradientTexture2D_csyrc")
+
+[node name="MainGame" type="Node2D"]
+script = ExtResource("1_pkq13")
+
+[node name="GameTimer" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/Control/SubViewportContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(1664, 1024)
+render_target_update_mode = 4
+
+[node name="GameMap" parent="CanvasLayer/Control/SubViewportContainer/SubViewport" instance=ExtResource("2_maxhk")]
+
+[node name="Camera2D" type="Camera2D" parent="CanvasLayer/Control/SubViewportContainer/SubViewport"]
+position = Vector2(832, 512)
+
+[node name="GameOverUI" type="Control" parent="CanvasLayer/Control/SubViewportContainer/SubViewport"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1664.0
+offset_bottom = 1024.0
+
+[node name="GameOverBg" type="ColorRect" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/GameOverUI"]
+layout_mode = 0
+offset_right = 1664.0
+offset_bottom = 1024.0
+color = Color(0, 0, 0, 0.784314)
+
+[node name="GameOverLabel" type="Label" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/GameOverUI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 100.0
+offset_bottom = 249.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("7_tdv4h")
+theme_override_font_sizes/font_size = 150
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoresLabel" type="Label" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/GameOverUI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 280.0
+offset_bottom = 466.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("7_tdv4h")
+theme_override_font_sizes/font_size = 80
+text = "Scores  0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RetartGameBtn" type="Button" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/GameOverUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.5
+offset_top = -12.0
+offset_right = 214.5
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("7_tdv4h")
+theme_override_font_sizes/font_size = 60
+text = "> ReStart Game"
+alignment = 0
+
+[node name="ReturnHomeBtn" type="Button" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/GameOverUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.0
+offset_top = 138.0
+offset_right = 324.0
+offset_bottom = 221.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("7_tdv4h")
+theme_override_font_sizes/font_size = 60
+text = "> Return HomePage"
+alignment = 0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gope7")
+
+[node name="BgMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_7cxiu")
+volume_db = 18.0
+autoplay = true
+
+[node name="DieMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_qvtqi")
+volume_db = 16.0
+
+[node name="EtaMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_bq55r")
+volume_db = 16.0
+
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/Control/SubViewportContainer/SubViewport/GameOverUI/RetartGameBtn" to="." method="_on_retart_game_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/SubViewportContainer/SubViewport/GameOverUI/ReturnHomeBtn" to="." method="_on_return_home_btn_pressed"]
+[connection signal="finished" from="BgMusic" to="." method="_on_bg_music_finished"]

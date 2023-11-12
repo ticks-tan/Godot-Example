@@ -1,0 +1,66 @@
+[gd_scene load_steps=12 format=3 uid="uid://dxgujxase6bus"]
+
+[ext_resource type="PackedScene" uid="uid://dknkfph2hskbx" path="res://sanke/bg_block.tscn" id="1_tvkge"]
+[ext_resource type="PackedScene" uid="uid://d4lbhg4krplox" path="res://sanke/history_snake.tscn" id="2_liycv"]
+[ext_resource type="PackedScene" uid="uid://cfsnkj8fjdb5c" path="res://sanke/snake.tscn" id="3_hjsfe"]
+[ext_resource type="PackedScene" uid="uid://bpv7jhbpt8vj7" path="res://sanke/enemy_snake.tscn" id="4_y6m7m"]
+[ext_resource type="PackedScene" uid="uid://tjlpynlhtfgg" path="res://food/food.tscn" id="5_ui7wu"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_xxlh3"]
+resource_name = "BgBlock"
+scenes/0/scene = ExtResource("1_tvkge")
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_tpjsq"]
+resource_name = "HistorySnake"
+scenes/0/scene = ExtResource("2_liycv")
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_2xfun"]
+resource_name = "Snake"
+scenes/0/scene = ExtResource("3_hjsfe")
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_w0vge"]
+resource_name = "EnemySnake"
+scenes/0/scene = ExtResource("4_y6m7m")
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_d6wt0"]
+resource_name = "Food"
+scenes/0/scene = ExtResource("5_ui7wu")
+
+[sub_resource type="TileSet" id="TileSet_dwf1e"]
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetScenesCollectionSource_xxlh3")
+sources/2 = SubResource("TileSetScenesCollectionSource_tpjsq")
+sources/3 = SubResource("TileSetScenesCollectionSource_2xfun")
+sources/4 = SubResource("TileSetScenesCollectionSource_w0vge")
+sources/5 = SubResource("TileSetScenesCollectionSource_d6wt0")
+
+[node name="GameMap" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = -832.0
+offset_top = -512.0
+offset_right = 2496.0
+offset_bottom = 1536.0
+color = Color(0, 0, 0, 1)
+
+[node name="BgMap" type="TileMap" parent="."]
+position = Vector2(32, 32)
+tile_set = SubResource("TileSet_dwf1e")
+format = 2
+layer_0/name = "Bg"
+layer_1/name = "Snake"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 2
+layer_1/navigation_enabled = true
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "EnemySnake"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = 1
+layer_2/navigation_enabled = true
+layer_2/tile_data = PackedInt32Array()
